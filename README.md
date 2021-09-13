@@ -26,3 +26,4 @@ CLOUD-IDE SETUP STEPS(follow the below steps in case you are using the Cloud IDE
         - chmod 0755 ./chrome-test-setup.sh
         - sh ./chrome-test-setup.sh
     2. Make the port 9515 public
+    http://18.212.236.253:4060

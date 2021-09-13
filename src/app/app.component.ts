@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { SegmentVideoService } from './services/segment-video.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +9,4 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent {
 
-  title = 'cj-app';
-
-  constructor() {
-    console.log(environment.apiUrl);
   }
-}

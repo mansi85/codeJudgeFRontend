@@ -1,0 +1,71 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Segment Video</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form
+      class="app-form"
+      [formGroup]="segmentVideoForm"
+      (ngSubmit)="onSegmentVideoFormSubmit()"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Video Link..."
+          formControlName="videoUrl"
+          class="video-link"
+        />
+        <mat-error *ngIf="segmentVideoForm.get('videoUrl')?.invalid"
+          >Invalid video format. Video should be in .mp4 format</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Select Segment settings...</mat-label>
+        <mat-select
+          formControlName="segmentSetting"
+          (selectionChange)="onSettingChange()"
+          class="segment-setting"
+        >
+          <mat-option *ngFor="let setting of segmentSettings" [value]="setting">
+            {{ setting }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="showInterval" class="interval-duration">
+        <input
+          type="number"
+          matInput
+          placeholder="Interval Duration (in seconds)..."
+          formControlName="interval"
+        />
+      </mat-form-field>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="warn"
+        [disabled]="!segmentVideoForm.valid"
+      >
+        SEGMENT VIDEO
+      </button>
+    </form>
+
+    <video
+      *ngFor="let video of segmentVideos; let i = index"
+      width="320"
+      height="240"
+      controls
+      class="segmented-video-{{ i }}"
+    >
+      <source
+        [src]="video['video_url']"
+        type="video/mp4"
+        class="segmented-video-source-{{ i }}"
+      />
+    </video>
+  </mat-card-content>
+</mat-card>
+
+<mat-spinner *ngIf="showLoading" mode="determinate" value='66' diameter="45"></mat-spinner>

@@ -1,0 +1,110 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Combine Video</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form
+      class="app-form"
+      [formGroup]="combineVideoForm"
+      (ngSubmit)="onCombineVideoFormSubmit()"
+    >
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="addVideoSegment()"
+        class="add-video"
+      >
+        ADD VIDEO
+      </button>
+      <div formArrayName="segments">
+        <div
+          class="combine-video-segments"
+          [formGroupName]="i"
+          *ngFor="let experience of segments.controls; let i = index"
+        >
+          <mat-form-field
+            class="combine-video-{{ i }} form-field"
+            style="width: 40%"
+          >
+            <input
+              matInput
+              placeholder="Video Link"
+              formControlName="video_url"
+            />
+          </mat-form-field>
+
+          <mat-form-field
+            class="combine-video-range-duration-start-{{ i }} form-field"
+          >
+            <input
+              type="number"
+              matInput
+              placeholder="Starts At"
+              formControlName="start"
+            />
+          </mat-form-field>
+
+          <mat-form-field
+            class="combine-video-range-duration-end-{{ i }} form-field"
+          >
+            <input
+              type="number"
+              matInput
+              placeholder="Ends At"
+              formControlName="end"
+            />
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="removeVideoSegment(i)"
+            style="height: 40px; margin: 10px"
+          >
+            DELETE
+          </button>
+        </div>
+      </div>
+      <mat-form-field class="video-height">
+        <input
+          type="number"
+          matInput
+          placeholder="Video Height"
+          formControlName="height"
+        />
+      </mat-form-field>
+      <mat-form-field class="video-width">
+        <input
+          type="number"
+          matInput
+          placeholder="Video Width"
+          formControlName="width"
+        />
+      </mat-form-field>
+
+      <button
+        type="submit"
+        mat-raised-button
+        color="warn"
+        [disabled]="isCombineVideoDisabled()"
+        class="combine-video"
+      >
+        COMBINE VIDEO(S)
+      </button>
+    </form>
+
+    <video
+      *ngIf="combineVideoUrl !== ''"
+      width="320"
+      height="240"
+      controls
+      class="combined-video"
+    >
+      <source
+        [src]="combineVideoUrl"
+        type="video/mp4"
+        class="combined-video-source"
+      />
+    </video>
+  </mat-card-content>
+</mat-card>
